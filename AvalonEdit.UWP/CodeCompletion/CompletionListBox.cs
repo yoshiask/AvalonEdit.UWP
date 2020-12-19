@@ -17,7 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 
 using ICSharpCode.AvalonEdit.Utils;
 
@@ -31,7 +31,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		internal ScrollViewer scrollViewer;
 
 		/// <inheritdoc/>
-		public override void OnApplyTemplate()
+		protected override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
 

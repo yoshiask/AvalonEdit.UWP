@@ -20,8 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using System.Xml;
 
 namespace ICSharpCode.AvalonEdit.Utils
@@ -213,7 +213,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		{
 			while (obj != null) {
 				yield return obj;
-				if (obj is Visual || obj is System.Windows.Media.Media3D.Visual3D) {
+				if (obj is Visual || obj is Windows.UI.Xaml.Media.Media3D.Visual3D) {
 					obj = VisualTreeHelper.GetParent(obj);
 				} else if (obj is FrameworkContentElement) {
 					// When called with a non-visual such as a TextElement, walk up the

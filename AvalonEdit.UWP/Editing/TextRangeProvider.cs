@@ -22,7 +22,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Provider;
 using System.Windows.Automation.Text;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;

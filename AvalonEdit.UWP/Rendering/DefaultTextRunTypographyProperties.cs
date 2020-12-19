@@ -17,7 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media.TextFormatting;
 
 namespace ICSharpCode.AvalonEdit.Rendering
 {

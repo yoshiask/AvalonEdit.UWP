@@ -47,7 +47,7 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// </summary>
 	/// <remarks><inheritdoc cref="TextSegment"/></remarks>
 	/// <see cref="TextSegment"/>
-	public sealed class TextSegmentCollection<T> : ICollection<T>, ISegmentTree, IWeakEventListener where T : TextSegment
+	public sealed class TextSegmentCollection : ICollection<TextSegment>, ISegmentTree, WeakEventListener
 	{
 		// Implementation: this is basically a mixture of an augmented interval tree
 		// and the TextAnchorTree.
@@ -99,7 +99,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		#endregion
 
 		#region OnDocumentChanged / UpdateOffsets
-		bool IWeakEventListener.ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
+		bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
 		{
 			if (managerType == typeof(TextDocumentWeakEventManager.Changed)) {
 				OnDocumentChanged((DocumentChangeEventArgs)e);
@@ -218,7 +218,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Adds the specified segment to the tree. This will cause the segment to update when the
 		/// document changes.
 		/// </summary>
-		public void Add(T item)
+		public void Add(TextSegment item)
 		{
 			if (item == null)
 				throw new ArgumentNullException("item");
@@ -273,11 +273,11 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Segments are sorted by their start offset.
 		/// Returns null if segment is the last segment.
 		/// </summary>
-		public T GetNextSegment(T segment)
+		public TextSegment GetNextSegment(TextSegment segment)
 		{
 			if (!Contains(segment))
 				throw new ArgumentException("segment is not inside the segment tree");
-			return (T)segment.Successor;
+			return segment.Successor;
 		}
 
 		/// <summary>
@@ -285,11 +285,11 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Segments are sorted by their start offset.
 		/// Returns null if segment is the first segment.
 		/// </summary>
-		public T GetPreviousSegment(T segment)
+		public TextSegment GetPreviousSegment(TextSegment segment)
 		{
 			if (!Contains(segment))
 				throw new ArgumentException("segment is not inside the segment tree");
-			return (T)segment.Predecessor;
+			return segment.Predecessor;
 		}
 		#endregion
 
@@ -297,18 +297,18 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Returns the first segment in the collection or null, if the collection is empty.
 		/// </summary>
-		public T FirstSegment {
+		public TextSegment FirstSegment {
 			get {
-				return root == null ? null : (T)root.LeftMost;
+				return root == null ? null : root.LeftMost;
 			}
 		}
 
 		/// <summary>
 		/// Returns the last segment in the collection or null, if the collection is empty.
 		/// </summary>
-		public T LastSegment {
+		public TextSegment LastSegment {
 			get {
-				return root == null ? null : (T)root.RightMost;
+				return root == null ? null : root.RightMost;
 			}
 		}
 		#endregion
@@ -318,12 +318,12 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Gets the first segment with a start offset greater or equal to <paramref name="startOffset"/>.
 		/// Returns null if no such segment is found.
 		/// </summary>
-		public T FindFirstSegmentWithStartAfter(int startOffset)
+		public TextSegment FindFirstSegmentWithStartAfter(int startOffset)
 		{
 			if (root == null)
 				return null;
 			if (startOffset <= 0)
-				return (T)root.LeftMost;
+				return root.LeftMost;
 			TextSegment s = FindNode(ref startOffset);
 			// startOffset means that the previous segment is starting at the offset we were looking for
 			while (startOffset == 0) {
@@ -334,7 +334,7 @@ namespace ICSharpCode.AvalonEdit.Document
 				startOffset += p.nodeLength;
 				s = p;
 			}
-			return (T)s;
+			return s;
 		}
 
 		/// <summary>
@@ -376,7 +376,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
 		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
-		public ReadOnlyCollection<T> FindSegmentsContaining(int offset)
+		public ReadOnlyCollection<TextSegment> FindSegmentsContaining(int offset)
 		{
 			return FindOverlappingSegments(offset, 0);
 		}
@@ -386,7 +386,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
 		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
-		public ReadOnlyCollection<T> FindOverlappingSegments(ISegment segment)
+		public ReadOnlyCollection<TextSegment> FindOverlappingSegments(ISegment segment)
 		{
 			if (segment == null)
 				throw new ArgumentNullException("segment");
@@ -399,17 +399,17 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		/// <returns>Returns a new collection containing the results of the query.
 		/// This means it is safe to modify the TextSegmentCollection while iterating through the result collection.</returns>
-		public ReadOnlyCollection<T> FindOverlappingSegments(int offset, int length)
+		public ReadOnlyCollection<TextSegment> FindOverlappingSegments(int offset, int length)
 		{
 			ThrowUtil.CheckNotNegative(length, "length");
-			List<T> results = new List<T>();
+			List<TextSegment> results = new List<TextSegment>();
 			if (root != null) {
 				FindOverlappingSegments(results, root, offset, offset + length);
 			}
 			return results.AsReadOnly();
 		}
 
-		void FindOverlappingSegments(List<T> results, TextSegment node, int low, int high)
+		void FindOverlappingSegments(List<TextSegment> results, TextSegment node, int low, int high)
 		{
 			// low and high are relative to node.LeftMost startpos (not node.LeftMost.Offset)
 			if (high < 0) {
@@ -439,7 +439,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			}
 
 			if (nodeLow <= node.segmentLength) {
-				results.Add((T)node);
+				results.Add(node);
 			}
 
 			if (node.right != null)
@@ -494,7 +494,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Removes the specified segment from the tree. This will cause the segment to not update
 		/// anymore when the document changes.
 		/// </summary>
-		public bool Remove(T item)
+		public bool Remove(TextSegment item)
 		{
 			if (!Contains(item))
 				return false;
@@ -533,7 +533,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		public void Clear()
 		{
-			T[] segments = this.ToArray();
+			TextSegment[] segments = this.ToArray();
 			root = null;
 			int offset = 0;
 			foreach (TextSegment s in segments) {
@@ -560,7 +560,7 @@ namespace ICSharpCode.AvalonEdit.Document
 			int expectedCount = 0;
 			// we cannot trust LINQ not to call ICollection.Count, so we need this loop
 			// to count the elements in the tree
-			using (IEnumerator<T> en = GetEnumerator()) {
+			using (IEnumerator<TextSegment> en = GetEnumerator()) {
 				while (en.MoveNext()) expectedCount++;
 			}
 			Debug.Assert(count == expectedCount);
@@ -929,14 +929,14 @@ namespace ICSharpCode.AvalonEdit.Document
 			get { return count; }
 		}
 
-		bool ICollection<T>.IsReadOnly {
+		bool ICollection<TextSegment>.IsReadOnly {
 			get { return false; }
 		}
 
 		/// <summary>
 		/// Gets whether this tree contains the specified item.
 		/// </summary>
-		public bool Contains(T item)
+		public bool Contains(TextSegment item)
 		{
 			return item != null && item.ownerTree == this;
 		}
@@ -944,7 +944,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Copies all segments in this SegmentTree to the specified array.
 		/// </summary>
-		public void CopyTo(T[] array, int arrayIndex)
+		public void CopyTo(TextSegment[] array, int arrayIndex)
 		{
 			if (array == null)
 				throw new ArgumentNullException("array");
@@ -952,7 +952,7 @@ namespace ICSharpCode.AvalonEdit.Document
 				throw new ArgumentException("The array is too small", "array");
 			if (arrayIndex < 0 || arrayIndex + count > array.Length)
 				throw new ArgumentOutOfRangeException("arrayIndex", arrayIndex, "Value must be between 0 and " + (array.Length - count));
-			foreach (T s in this) {
+			foreach (TextSegment s in this) {
 				array[arrayIndex++] = s;
 			}
 		}
@@ -960,12 +960,12 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Gets an enumerator to enumerate the segments.
 		/// </summary>
-		public IEnumerator<T> GetEnumerator()
+		public IEnumerator<TextSegment> GetEnumerator()
 		{
 			if (root != null) {
 				TextSegment current = root.LeftMost;
 				while (current != null) {
-					yield return (T)current;
+					yield return current;
 					// TODO: check if collection was modified during enumeration
 					current = current.Successor;
 				}

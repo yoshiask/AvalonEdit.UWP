@@ -20,10 +20,10 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.TextFormatting;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
@@ -39,7 +39,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static LineNumberMargin()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(LineNumberMargin),
-													 new FrameworkPropertyMetadata(typeof(LineNumberMargin)));
+													 new PropertyMetadata(typeof(LineNumberMargin)));
 		}
 
 		TextArea textArea;
@@ -168,7 +168,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		bool selecting;
 
 		/// <inheritdoc/>
-		protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+		protected override void OnMouseLeftButtonDown(PointerEventArgs e)
 		{
 			base.OnMouseLeftButtonDown(e);
 			if (!e.Handled && TextView != null && textArea != null) {
@@ -242,7 +242,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		}
 
 		/// <inheritdoc/>
-		protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+		protected override void OnMouseLeftButtonUp(PointerEventArgs e)
 		{
 			if (selecting) {
 				selecting = false;

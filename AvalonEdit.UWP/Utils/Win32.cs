@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 namespace ICSharpCode.AvalonEdit.Utils
 {

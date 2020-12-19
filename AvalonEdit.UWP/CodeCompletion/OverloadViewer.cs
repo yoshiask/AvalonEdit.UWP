@@ -19,7 +19,7 @@
 using System;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using System.Windows.Data;
 
 namespace ICSharpCode.AvalonEdit.CodeCompletion
@@ -32,7 +32,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		static OverloadViewer()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(OverloadViewer),
-													 new FrameworkPropertyMetadata(typeof(OverloadViewer)));
+													 new PropertyMetadata(typeof(OverloadViewer)));
 		}
 
 		/// <summary>
@@ -50,17 +50,17 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		}
 
 		/// <inheritdoc/>
-		public override void OnApplyTemplate()
+		protected override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
 
-			Button upButton = (Button)this.Template.FindName("PART_UP", this);
+			Button upButton = (Button)this.GetTemplateChild("PART_UP");
 			upButton.Click += (sender, e) => {
 				e.Handled = true;
 				ChangeIndex(-1);
 			};
 
-			Button downButton = (Button)this.Template.FindName("PART_DOWN", this);
+			Button downButton = (Button)this.GetTemplateChild("PART_DOWN");
 			downButton.Click += (sender, e) => {
 				e.Handled = true;
 				ChangeIndex(+1);

@@ -18,7 +18,7 @@
 
 using System;
 using System.Linq;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;

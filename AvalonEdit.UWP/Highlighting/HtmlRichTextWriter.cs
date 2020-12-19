@@ -22,9 +22,11 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Utils;
+using Windows.UI;
+using Windows.UI.Text;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {

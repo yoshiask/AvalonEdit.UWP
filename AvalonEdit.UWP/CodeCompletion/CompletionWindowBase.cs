@@ -20,27 +20,31 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using Windows.UI.Xaml.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Threading;
+using System.Threading;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Core;
+using Windows.Foundation;
 
 namespace ICSharpCode.AvalonEdit.CodeCompletion
 {
 	/// <summary>
 	/// Base class for completion windows. Handles positioning the window at the caret.
 	/// </summary>
-	public class CompletionWindowBase : Window
+	public class CompletionWindowBase : ContentControl
 	{
 		static CompletionWindowBase()
 		{
-			WindowStyleProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(WindowStyle.None));
-			ShowActivatedProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(Boxes.False));
-			ShowInTaskbarProperty.OverrideMetadata(typeof(CompletionWindowBase), new FrameworkPropertyMetadata(Boxes.False));
+			WindowStyleProperty.OverrideMetadata(typeof(CompletionWindowBase), new PropertyMetadata(WindowStyle.None));
+			ShowActivatedProperty.OverrideMetadata(typeof(CompletionWindowBase), new PropertyMetadata(Boxes.False));
+			ShowInTaskbarProperty.OverrideMetadata(typeof(CompletionWindowBase), new PropertyMetadata(Boxes.False));
 		}
 
 		/// <summary>
@@ -48,7 +52,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		/// </summary>
 		public TextArea TextArea { get; private set; }
 
-		Window parentWindow;
+		CoreWindow parentWindow;
 		TextDocument document;
 
 		/// <summary>
@@ -76,9 +80,8 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 			if (textArea == null)
 				throw new ArgumentNullException("textArea");
 			this.TextArea = textArea;
-			parentWindow = Window.GetWindow(textArea);
-			this.Owner = parentWindow;
-			this.AddHandler(MouseUpEvent, new MouseButtonEventHandler(OnMouseUp), true);
+			parentWindow = CoreWindow.GetForCurrentThread();
+			this.AddHandler(PointerReleasedEvent, new EventHandler(OnMouseUp), true);
 
 			StartOffset = EndOffset = this.TextArea.Caret.Offset;
 
@@ -239,7 +242,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		}
 
 		// Special handler: handledEventsToo
-		void OnMouseUp(object sender, MouseButtonEventArgs e)
+		void OnMouseUp(object sender, PointerEventArgs e)
 		{
 			ActivateParentWindow();
 		}
@@ -256,9 +259,9 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		void CloseIfFocusLost()
 		{
 			if (CloseOnFocusLost) {
-				Debug.WriteLine("CloseIfFocusLost: this.IsActive=" + this.IsActive + " IsTextAreaFocused=" + IsTextAreaFocused);
-				if (!this.IsActive && !IsTextAreaFocused) {
-					Close();
+				Debug.WriteLine("CloseIfFocusLost: this.IsActive=" + IsFocusEngaged + " IsTextAreaFocused=" + IsTextAreaFocused);
+				if (!IsFocusEngaged && !IsTextAreaFocused) {
+					Visibility = Visibility.Collapsed;
 				}
 			}
 		}
@@ -272,9 +275,9 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 
 		bool IsTextAreaFocused {
 			get {
-				if (parentWindow != null && !parentWindow.IsActive)
+				if (parentWindow != null && parentWindow.ActivationMode == CoreWindowActivationMode.ActivatedInForeground)
 					return false;
-				return this.TextArea.IsKeyboardFocused;
+				return TextArea.IsKeyboardFocused;
 			}
 		}
 

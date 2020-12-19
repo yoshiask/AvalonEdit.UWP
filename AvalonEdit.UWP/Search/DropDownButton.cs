@@ -18,7 +18,7 @@
 
 using System;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace ICSharpCode.AvalonEdit.Search
 {
@@ -32,7 +32,7 @@ namespace ICSharpCode.AvalonEdit.Search
 		/// </summary>
 		public static readonly DependencyProperty DropDownContentProperty
 		= DependencyProperty.Register("DropDownContent", typeof(Popup),
-			typeof(DropDownButton), new FrameworkPropertyMetadata(null));
+			typeof(DropDownButton), new PropertyMetadata(null));
 
 		/// <summary>
 		/// The key that identifies the <see cref="IsDropDownContentOpenProperty" /> dependency property.
@@ -40,7 +40,7 @@ namespace ICSharpCode.AvalonEdit.Search
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
 		protected static readonly DependencyPropertyKey IsDropDownContentOpenPropertyKey
 		= DependencyProperty.RegisterReadOnly("IsDropDownContentOpen", typeof(bool),
-			typeof(DropDownButton), new FrameworkPropertyMetadata(false));
+			typeof(DropDownButton), new PropertyMetadata(false));
 
 		/// <summary>
 		/// Identifies the <see cref="IsDropDownContentOpenProperty" /> dependency property.
@@ -49,7 +49,7 @@ namespace ICSharpCode.AvalonEdit.Search
 
 		static DropDownButton()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(typeof(DropDownButton)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownButton), new PropertyMetadata(typeof(DropDownButton)));
 		}
 
 		/// <summary>

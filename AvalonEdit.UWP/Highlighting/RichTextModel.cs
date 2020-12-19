@@ -21,9 +21,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 
 using ICSharpCode.AvalonEdit.Document;
+using Windows.UI.Text;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {
@@ -287,7 +288,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 			for (int i = 0; i < runs.Length; i++) {
 				int startOffset = stateChangeOffsets[i];
 				int endOffset = i + 1 < stateChangeOffsets.Count ? stateChangeOffsets[i + 1] : textSource.TextLength;
-				Run r = new Run(textSource.GetText(startOffset, endOffset - startOffset));
+				Run r = new Run() { Text = textSource.GetText(startOffset, endOffset - startOffset) };
 				HighlightingColor state = stateChanges[i];
 				RichText.ApplyColorToTextElement(r, state);
 				runs[i] = r;

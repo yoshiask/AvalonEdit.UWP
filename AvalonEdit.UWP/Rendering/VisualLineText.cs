@@ -18,8 +18,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Media.TextFormatting;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Utils;

@@ -19,9 +19,9 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 using System.Windows.Input;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media.TextFormatting;
 using System.Windows.Navigation;
 
 namespace ICSharpCode.AvalonEdit.Rendering
@@ -94,7 +94,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <inheritdoc/>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
 														 Justification = "I've seen Process.Start throw undocumented exceptions when the mail client / web browser is installed incorrectly")]
-		protected internal override void OnMouseDown(MouseButtonEventArgs e)
+		protected internal override void OnMouseDown(PointerEventArgs e)
 		{
 			if (e.ChangedButton == MouseButton.Left && !e.Handled && LinkIsClickable()) {
 				RequestNavigateEventArgs args = new RequestNavigateEventArgs(this.NavigateUri, this.TargetName);

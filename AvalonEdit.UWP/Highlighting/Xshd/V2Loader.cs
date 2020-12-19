@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 using System.Xml;
 using System.Xml.Schema;
 

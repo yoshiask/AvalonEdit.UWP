@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 using System.Windows.Input;
 
 using ICSharpCode.AvalonEdit.Document;

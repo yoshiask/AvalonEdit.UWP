@@ -19,10 +19,11 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
+using Windows.UI.Xaml;
 
 namespace ICSharpCode.AvalonEdit.Utils
 {
@@ -48,7 +49,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 					HighlightedLine highlightedLine = highlighter.HighlightLine(lineNumber);
 					p.Inlines.AddRange(highlightedLine.ToRichText().CreateRuns());
 				} else {
-					p.Inlines.Add(document.GetText(line));
+					p.Inlines.Add(new Run() { Text = document.GetText(line) });
 				}
 			}
 			return p;

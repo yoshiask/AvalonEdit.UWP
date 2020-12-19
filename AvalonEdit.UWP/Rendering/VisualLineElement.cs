@@ -18,10 +18,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.TextFormatting;
 
 using ICSharpCode.AvalonEdit.Document;
 
@@ -252,14 +252,14 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Allows the visual line element to handle a mouse event.
 		/// </summary>
-		protected internal virtual void OnMouseDown(MouseButtonEventArgs e)
+		protected internal virtual void OnMouseDown(PointerEventArgs e)
 		{
 		}
 
 		/// <summary>
 		/// Allows the visual line element to handle a mouse event.
 		/// </summary>
-		protected internal virtual void OnMouseUp(MouseButtonEventArgs e)
+		protected internal virtual void OnMouseUp(PointerEventArgs e)
 		{
 		}
 	}

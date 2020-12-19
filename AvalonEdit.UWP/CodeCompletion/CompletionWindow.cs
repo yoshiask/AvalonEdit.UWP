@@ -18,8 +18,8 @@
 
 using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using System.Windows.Input;
 
 using ICSharpCode.AvalonEdit.Document;
@@ -33,7 +33,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 	public class CompletionWindow : CompletionWindowBase
 	{
 		readonly CompletionList completionList = new CompletionList();
-		ToolTip toolTip = new ToolTip();
+		ToolTip ToolTip = new ToolTip();
 
 		/// <summary>
 		/// Gets the completion list used in this completion window.
@@ -49,7 +49,6 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		{
 			// keep height automatic
 			this.CloseAutomatically = true;
-			this.SizeToContent = SizeToContent.Height;
 			this.MaxHeight = 300;
 			this.Width = 175;
 			this.Content = completionList;
@@ -57,21 +56,21 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 			this.MinHeight = 15;
 			this.MinWidth = 30;
 
-			toolTip.PlacementTarget = this;
-			toolTip.Placement = PlacementMode.Right;
-			toolTip.Closed += toolTip_Closed;
+			ToolTipService.ToolTip.PlacementTarget = this;
+			ToolTipService.ToolTip.Placement = PlacementMode.Right;
+			ToolTipService.ToolTip.Closed += ToolTipService.ToolTip_Closed;
 
 			AttachEvents();
 		}
 
-		#region ToolTip handling
-		void toolTip_Closed(object sender, RoutedEventArgs e)
+		#region ToolTipService.ToolTip handling
+		void ToolTipService.ToolTip_Closed(object sender, RoutedEventArgs e)
 		{
-			// Clear content after tooltip is closed.
+			// Clear content after ToolTipService.ToolTip is closed.
 			// We cannot clear is immediately when setting IsOpen=false
-			// because the tooltip uses an animation for closing.
-			if (toolTip != null)
-				toolTip.Content = null;
+			// because the ToolTipService.ToolTip uses an animation for closing.
+			if (ToolTipService.ToolTip != null)
+				ToolTipService.ToolTip.Content = null;
 		}
 
 		void completionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,16 +82,16 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 			if (description != null) {
 				string descriptionText = description as string;
 				if (descriptionText != null) {
-					toolTip.Content = new TextBlock {
+					ToolTipService.ToolTip.Content = new TextBlock {
 						Text = descriptionText,
 						TextWrapping = TextWrapping.Wrap
 					};
 				} else {
-					toolTip.Content = description;
+					ToolTipService.ToolTip.Content = description;
 				}
-				toolTip.IsOpen = true;
+				ToolTipService.ToolTip.IsOpen = true;
 			} else {
-				toolTip.IsOpen = false;
+				ToolTipService.ToolTip.IsOpen = false;
 			}
 		}
 		#endregion
@@ -131,9 +130,9 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		protected override void OnClosed(EventArgs e)
 		{
 			base.OnClosed(e);
-			if (toolTip != null) {
-				toolTip.IsOpen = false;
-				toolTip = null;
+			if (ToolTipService.ToolTip != null) {
+				ToolTipService.ToolTip.IsOpen = false;
+				ToolTipService.ToolTip = null;
 			}
 		}
 

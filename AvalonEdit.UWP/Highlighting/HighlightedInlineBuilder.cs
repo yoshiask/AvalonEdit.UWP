@@ -20,10 +20,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Utils;
+using Windows.UI.Text;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {

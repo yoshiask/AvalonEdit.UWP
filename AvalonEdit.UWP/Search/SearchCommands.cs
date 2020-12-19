@@ -33,7 +33,7 @@ namespace ICSharpCode.AvalonEdit.Search
 		/// <summary>
 		/// Finds the next occurrence in the file.
 		/// </summary>
-		public static readonly RoutedCommand FindNext = new RoutedCommand(
+		public static readonly RelayCommand FindNext = new RelayCommand(
 			"FindNext", typeof(SearchPanel),
 			new InputGestureCollection { new KeyGesture(Key.F3) }
 		);
@@ -41,7 +41,7 @@ namespace ICSharpCode.AvalonEdit.Search
 		/// <summary>
 		/// Finds the previous occurrence in the file.
 		/// </summary>
-		public static readonly RoutedCommand FindPrevious = new RoutedCommand(
+		public static readonly RelayCommand FindPrevious = new RelayCommand(
 			"FindPrevious", typeof(SearchPanel),
 			new InputGestureCollection { new KeyGesture(Key.F3, ModifierKeys.Shift) }
 		);
@@ -49,7 +49,7 @@ namespace ICSharpCode.AvalonEdit.Search
 		/// <summary>
 		/// Closes the SearchPanel.
 		/// </summary>
-		public static readonly RoutedCommand CloseSearchPanel = new RoutedCommand(
+		public static readonly RelayCommand CloseSearchPanel = new RelayCommand(
 			"CloseSearchPanel", typeof(SearchPanel),
 			new InputGestureCollection { new KeyGesture(Key.Escape) }
 		);

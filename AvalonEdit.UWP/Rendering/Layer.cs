@@ -18,7 +18,7 @@
 
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 namespace ICSharpCode.AvalonEdit.Rendering
 {

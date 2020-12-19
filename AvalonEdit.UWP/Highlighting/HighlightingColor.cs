@@ -22,9 +22,11 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Utils;
+using Windows.UI.Text;
+using Windows.UI;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {
@@ -189,9 +191,10 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 				throw new ArgumentNullException("info");
 			this.Name = info.GetString("Name");
 			if (info.GetBoolean("HasWeight"))
-				this.FontWeight = System.Windows.FontWeight.FromOpenTypeWeight(info.GetInt32("Weight"));
+				this.FontWeight = new FontWeight() { Weight = (ushort)info.GetInt32("Weight") };
 			if (info.GetBoolean("HasStyle"))
-				this.FontStyle = (FontStyle?)new FontStyleConverter().ConvertFromInvariantString(info.GetString("Style"));
+				// TODO: Set to null if parse failed
+				this.FontStyle = (FontStyle?)Enum.Parse(typeof(FontStyle), info.GetString("Style"));
 			if (info.GetBoolean("HasUnderline"))
 				this.Underline = info.GetBoolean("Underline");
 			if (info.GetBoolean("HasStrikethrough"))
@@ -215,7 +218,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 			info.AddValue("Name", this.Name);
 			info.AddValue("HasWeight", this.FontWeight.HasValue);
 			if (this.FontWeight.HasValue)
-				info.AddValue("Weight", this.FontWeight.Value.ToOpenTypeWeight());
+				info.AddValue("Weight", this.FontWeight.Value.Weight);
 			info.AddValue("HasStyle", this.FontStyle.HasValue);
 			if (this.FontStyle.HasValue)
 				info.AddValue("Style", this.FontStyle.Value.ToString());
@@ -229,7 +232,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 			info.AddValue("Background", this.Background);
 			info.AddValue("HasFamily", this.FontFamily != null);
 			if (this.FontFamily != null)
-				info.AddValue("Family", this.FontFamily.FamilyNames.FirstOrDefault());
+				info.AddValue("Family", this.FontFamily.Source);
 			info.AddValue("HasSize", this.FontSize.HasValue);
 			if (this.FontSize.HasValue)
 				info.AddValue("Size", this.FontSize.Value.ToString());
@@ -322,7 +325,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		{
 			if (other == null)
 				return false;
-			return this.name == other.name && this.fontWeight == other.fontWeight
+			return this.name == other.name && this.fontWeight?.Weight == other.fontWeight?.Weight
 				&& this.fontStyle == other.fontStyle && this.underline == other.underline && this.strikethrough == other.strikethrough
 				&& object.Equals(this.foreground, other.foreground) && object.Equals(this.background, other.background)
 				&& object.Equals(this.fontFamily, other.fontFamily) && object.Equals(this.FontSize, other.FontSize);

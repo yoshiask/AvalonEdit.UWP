@@ -22,9 +22,10 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Rendering;
+using Windows.UI;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {

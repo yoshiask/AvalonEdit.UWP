@@ -39,7 +39,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// </summary>
 		public static readonly DependencyProperty TextViewProperty =
 			DependencyProperty.Register("TextView", typeof(TextView), typeof(AbstractMargin),
-										new FrameworkPropertyMetadata(OnTextViewChanged));
+										new PropertyMetadata(OnTextViewChanged));
 
 		/// <summary>
 		/// Gets/sets the text view for which line numbers are displayed.

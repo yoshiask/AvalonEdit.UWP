@@ -19,9 +19,11 @@
 using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Highlighting;
+using Windows.UI.Text;
+using Windows.UI;
 
 namespace ICSharpCode.AvalonEdit.Utils
 {
@@ -94,7 +96,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		/// <summary>
 		/// Begin a highlighted span.
 		/// </summary>
-		public virtual void BeginSpan(Highlighting.HighlightingColor highlightingColor)
+		public virtual void BeginSpan(HighlightingColor highlightingColor)
 		{
 			BeginUnhandledSpan();
 		}

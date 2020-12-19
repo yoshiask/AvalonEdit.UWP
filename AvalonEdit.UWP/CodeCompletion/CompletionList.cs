@@ -21,11 +21,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using System.Windows.Input;
 
 using ICSharpCode.AvalonEdit.Utils;
+using Windows.UI.Core;
+using Windows.System;
 
 namespace ICSharpCode.AvalonEdit.CodeCompletion
 {
@@ -37,7 +39,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		static CompletionList()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(CompletionList),
-													 new FrameworkPropertyMetadata(typeof(CompletionList)));
+													 new PropertyMetadata(typeof(CompletionList)));
 		}
 
 		bool isFiltering = true;
@@ -55,7 +57,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		/// </summary>
 		public static readonly DependencyProperty EmptyTemplateProperty =
 			DependencyProperty.Register("EmptyTemplate", typeof(ControlTemplate), typeof(CompletionList),
-										new FrameworkPropertyMetadata());
+										new PropertyMetadata());
 
 		/// <summary>
 		/// Content of EmptyTemplate will be shown when CompletionList contains no items.
@@ -84,7 +86,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		CompletionListBox listBox;
 
 		/// <inheritdoc/>
-		public override void OnApplyTemplate()
+		protected override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
 
@@ -142,33 +144,33 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 			// We have to do some key handling manually, because the default doesn't work with
 			// our simulated events.
 			// Also, the default PageUp/PageDown implementation changes the focus, so we avoid it.
-			switch (e.Key) {
-				case Key.Down:
+			switch (e.VirtualKey) {
+				case VirtualKey.Down:
 					e.Handled = true;
 					listBox.SelectIndex(listBox.SelectedIndex + 1);
 					break;
-				case Key.Up:
+				case VirtualKey.Up:
 					e.Handled = true;
 					listBox.SelectIndex(listBox.SelectedIndex - 1);
 					break;
-				case Key.PageDown:
+				case VirtualKey.PageDown:
 					e.Handled = true;
 					listBox.SelectIndex(listBox.SelectedIndex + listBox.VisibleItemCount);
 					break;
-				case Key.PageUp:
+				case VirtualKey.PageUp:
 					e.Handled = true;
 					listBox.SelectIndex(listBox.SelectedIndex - listBox.VisibleItemCount);
 					break;
-				case Key.Home:
+				case VirtualKey.Home:
 					e.Handled = true;
 					listBox.SelectIndex(0);
 					break;
-				case Key.End:
+				case VirtualKey.End:
 					e.Handled = true;
 					listBox.SelectIndex(listBox.Items.Count - 1);
 					break;
-				case Key.Tab:
-				case Key.Enter:
+				case VirtualKey.Tab:
+				case VirtualKey.Enter:
 					e.Handled = true;
 					RequestInsertion(e);
 					break;
@@ -176,7 +178,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		}
 
 		/// <inheritdoc/>
-		protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+		protected override void OnMouseDoubleClick(PointerEventArgs e)
 		{
 			base.OnMouseDoubleClick(e);
 			if (e.ChangedButton == MouseButton.Left) {

@@ -17,7 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 using System.Windows.Shapes;
 
 namespace ICSharpCode.AvalonEdit.Editing

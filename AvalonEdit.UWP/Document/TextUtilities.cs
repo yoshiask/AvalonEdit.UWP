@@ -18,7 +18,6 @@
 
 using System;
 using System.Globalization;
-using System.Windows.Documents;
 
 namespace ICSharpCode.AvalonEdit.Document
 {
@@ -53,6 +52,16 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// </summary>
 		EveryCodepoint
 	}
+
+	/// <summary>
+	/// Specifies a logical direction in which to perform certain text operations,
+	/// such as inserting, retrieving, or navigating through text relative to a specified position
+	/// </summary>
+	public enum LogicalDirection
+    {
+		Backward,
+		Forward
+    }
 
 	/// <summary>
 	/// Static helper methods for working with text.

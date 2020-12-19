@@ -22,12 +22,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using Windows.UI.Xaml.Media;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 using ICSharpCode.AvalonEdit.Document;
@@ -49,9 +49,9 @@ namespace ICSharpCode.AvalonEdit
 		static TextEditor()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(TextEditor),
-													 new FrameworkPropertyMetadata(typeof(TextEditor)));
+													 new PropertyMetadata(typeof(TextEditor)));
 			FocusableProperty.OverrideMetadata(typeof(TextEditor),
-											   new FrameworkPropertyMetadata(Boxes.True));
+											   new PropertyMetadata(Boxes.True));
 		}
 
 		/// <summary>
@@ -101,7 +101,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty DocumentProperty
 			= TextView.DocumentProperty.AddOwner(
-				typeof(TextEditor), new FrameworkPropertyMetadata(OnDocumentChanged));
+				typeof(TextEditor), new PropertyMetadata(OnDocumentChanged));
 
 		/// <summary>
 		/// Gets/Sets the document displayed by the text editor.
@@ -153,7 +153,7 @@ namespace ICSharpCode.AvalonEdit
 		/// Options property.
 		/// </summary>
 		public static readonly DependencyProperty OptionsProperty
-			= TextView.OptionsProperty.AddOwner(typeof(TextEditor), new FrameworkPropertyMetadata(OnOptionsChanged));
+			= TextView.OptionsProperty.AddOwner(typeof(TextEditor), new PropertyMetadata(OnOptionsChanged));
 
 		/// <summary>
 		/// Gets/Sets the options currently used by the text editor.
@@ -267,10 +267,10 @@ namespace ICSharpCode.AvalonEdit
 		/// <summary>
 		/// Is called after the template was applied.
 		/// </summary>
-		public override void OnApplyTemplate()
+		protected override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
-			scrollViewer = (ScrollViewer)Template.FindName("PART_ScrollViewer", this);
+			scrollViewer = (ScrollViewer)GetTemplateChild("PART_ScrollViewer");
 		}
 
 		/// <summary>
@@ -307,7 +307,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty SyntaxHighlightingProperty =
 			DependencyProperty.Register("SyntaxHighlighting", typeof(IHighlightingDefinition), typeof(TextEditor),
-										new FrameworkPropertyMetadata(OnSyntaxHighlightingChanged));
+										new PropertyMetadata(OnSyntaxHighlightingChanged));
 
 
 		/// <summary>
@@ -357,7 +357,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty WordWrapProperty =
 			DependencyProperty.Register("WordWrap", typeof(bool), typeof(TextEditor),
-										new FrameworkPropertyMetadata(Boxes.False));
+										new PropertyMetadata(Boxes.False));
 
 		/// <summary>
 		/// Specifies whether the text editor uses word wrapping.
@@ -378,7 +378,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty IsReadOnlyProperty =
 			DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(TextEditor),
-										new FrameworkPropertyMetadata(Boxes.False, OnIsReadOnlyChanged));
+										new PropertyMetadata(Boxes.False, OnIsReadOnlyChanged));
 
 		/// <summary>
 		/// Specifies whether the user can change the text editor content.
@@ -413,7 +413,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty IsModifiedProperty =
 			DependencyProperty.Register("IsModified", typeof(bool), typeof(TextEditor),
-										new FrameworkPropertyMetadata(Boxes.False, OnIsModifiedChanged));
+										new PropertyMetadata(Boxes.False, OnIsModifiedChanged));
 
 		/// <summary>
 		/// Gets/Sets the 'modified' flag.
@@ -460,7 +460,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty ShowLineNumbersProperty =
 			DependencyProperty.Register("ShowLineNumbers", typeof(bool), typeof(TextEditor),
-										new FrameworkPropertyMetadata(Boxes.False, OnShowLineNumbersChanged));
+										new PropertyMetadata(Boxes.False, OnShowLineNumbersChanged));
 
 		/// <summary>
 		/// Specifies whether line numbers are shown on the left to the text view.
@@ -502,7 +502,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public static readonly DependencyProperty LineNumbersForegroundProperty =
 			DependencyProperty.Register("LineNumbersForeground", typeof(Brush), typeof(TextEditor),
-										new FrameworkPropertyMetadata(Brushes.Gray, OnLineNumbersForegroundChanged));
+										new PropertyMetadata(Brushes.Gray, OnLineNumbersForegroundChanged));
 
 		/// <summary>
 		/// Gets/sets the Brush used for displaying the foreground color of line numbers.
@@ -1058,7 +1058,7 @@ namespace ICSharpCode.AvalonEdit
 		/// <summary>
 		/// Dependency property for <see cref="HorizontalScrollBarVisibility"/>
 		/// </summary>
-		public static readonly DependencyProperty HorizontalScrollBarVisibilityProperty = ScrollViewer.HorizontalScrollBarVisibilityProperty.AddOwner(typeof(TextEditor), new FrameworkPropertyMetadata(ScrollBarVisibility.Visible));
+		public static readonly DependencyProperty HorizontalScrollBarVisibilityProperty = ScrollViewer.HorizontalScrollBarVisibilityProperty.AddOwner(typeof(TextEditor), new PropertyMetadata(ScrollBarVisibility.Visible));
 
 		/// <summary>
 		/// Gets/Sets the horizontal scroll bar visibility.
@@ -1071,7 +1071,7 @@ namespace ICSharpCode.AvalonEdit
 		/// <summary>
 		/// Dependency property for <see cref="VerticalScrollBarVisibility"/>
 		/// </summary>
-		public static readonly DependencyProperty VerticalScrollBarVisibilityProperty = ScrollViewer.VerticalScrollBarVisibilityProperty.AddOwner(typeof(TextEditor), new FrameworkPropertyMetadata(ScrollBarVisibility.Visible));
+		public static readonly DependencyProperty VerticalScrollBarVisibilityProperty = ScrollViewer.VerticalScrollBarVisibilityProperty.AddOwner(typeof(TextEditor), new PropertyMetadata(ScrollBarVisibility.Visible));
 
 		/// <summary>
 		/// Gets/Sets the vertical scroll bar visibility.

@@ -22,9 +22,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Windows.Documents;
 
 using ICSharpCode.AvalonEdit.Document;
+using Windows.UI.Xaml.Documents;
 
 namespace ICSharpCode.AvalonEdit.Highlighting
 {
@@ -163,7 +163,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		}
 
 		/// <summary>
-		/// Creates WPF Run instances that can be used for TextBlock.Inlines.
+		/// Creates UWP Run instances that can be used for TextBlock.Inlines.
 		/// </summary>
 		public Run[] CreateRuns()
 		{
@@ -171,7 +171,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 			for (int i = 0; i < runs.Length; i++) {
 				int startOffset = stateChangeOffsets[i];
 				int endOffset = i + 1 < stateChangeOffsets.Length ? stateChangeOffsets[i + 1] : text.Length;
-				Run r = new Run(text.Substring(startOffset, endOffset - startOffset));
+				Run r = new Run() { Text = text.Substring(startOffset, endOffset - startOffset) };
 				HighlightingColor state = stateChanges[i];
 				ApplyColorToTextElement(r, state);
 				runs[i] = r;
@@ -183,11 +183,12 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		{
 			if (state.Foreground != null)
 				r.Foreground = state.Foreground.GetBrush(null);
-			if (state.Background != null)
-				r.Background = state.Background.GetBrush(null);
-			if (state.FontWeight != null)
+			// TODO: TextElements don't have backgrounds
+			//if (state.Background != null)
+			//	r.Background = state.Background.GetBrush(null);
+			if (state.FontWeight.HasValue)
 				r.FontWeight = state.FontWeight.Value;
-			if (state.FontStyle != null)
+			if (state.FontStyle.HasValue)
 				r.FontStyle = state.FontStyle.Value;
 		}
 

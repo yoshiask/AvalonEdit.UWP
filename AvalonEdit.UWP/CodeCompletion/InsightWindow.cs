@@ -18,7 +18,7 @@
 
 using System;
 using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Utils;
@@ -33,9 +33,9 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		static InsightWindow()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(InsightWindow),
-													 new FrameworkPropertyMetadata(typeof(InsightWindow)));
+													 new PropertyMetadata(typeof(InsightWindow)));
 			AllowsTransparencyProperty.OverrideMetadata(typeof(InsightWindow),
-														new FrameworkPropertyMetadata(Boxes.True));
+														new PropertyMetadata(Boxes.True));
 		}
 
 		/// <summary>

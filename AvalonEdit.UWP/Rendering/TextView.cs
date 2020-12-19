@@ -25,11 +25,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.TextFormatting;
 using System.Windows.Threading;
 
 using ICSharpCode.AvalonEdit.Document;
@@ -51,8 +51,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		#region Constructor
 		static TextView()
 		{
-			ClipToBoundsProperty.OverrideMetadata(typeof(TextView), new FrameworkPropertyMetadata(Boxes.True));
-			FocusableProperty.OverrideMetadata(typeof(TextView), new FrameworkPropertyMetadata(Boxes.False));
+			ClipToBoundsProperty.OverrideMetadata(typeof(TextView), new PropertyMetadata(Boxes.True));
+			FocusableProperty.OverrideMetadata(typeof(TextView), new PropertyMetadata(Boxes.False));
 		}
 
 		ColumnRulerRenderer columnRulerRenderer;
@@ -90,7 +90,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty DocumentProperty =
 			DependencyProperty.Register("Document", typeof(TextDocument), typeof(TextView),
-										new FrameworkPropertyMetadata(OnDocumentChanged));
+										new PropertyMetadata(OnDocumentChanged));
 
 		TextDocument document;
 		HeightTree heightTree;
@@ -196,7 +196,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty OptionsProperty =
 			DependencyProperty.Register("Options", typeof(TextEditorOptions), typeof(TextView),
-										new FrameworkPropertyMetadata(OnOptionsChanged));
+										new PropertyMetadata(OnOptionsChanged));
 
 		/// <summary>
 		/// Gets/Sets the options used by the text editor.
@@ -556,7 +556,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty NonPrintableCharacterBrushProperty =
 			DependencyProperty.Register("NonPrintableCharacterBrush", typeof(Brush), typeof(TextView),
-										new FrameworkPropertyMetadata(Brushes.LightGray));
+										new PropertyMetadata(Brushes.LightGray));
 
 		/// <summary>
 		/// Gets/sets the Brush used for displaying non-printable characters.
@@ -571,7 +571,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty LinkTextForegroundBrushProperty =
 			DependencyProperty.Register("LinkTextForegroundBrush", typeof(Brush), typeof(TextView),
-										new FrameworkPropertyMetadata(Brushes.Blue));
+										new PropertyMetadata(Brushes.Blue));
 
 		/// <summary>
 		/// Gets/sets the Brush used for displaying link texts.
@@ -586,7 +586,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty LinkTextBackgroundBrushProperty =
 			DependencyProperty.Register("LinkTextBackgroundBrush", typeof(Brush), typeof(TextView),
-										new FrameworkPropertyMetadata(Brushes.Transparent));
+										new PropertyMetadata(Brushes.Transparent));
 
 		/// <summary>
 		/// Gets/sets the Brush used for the background of link texts.
@@ -602,7 +602,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty LinkTextUnderlineProperty =
 			DependencyProperty.Register("LinkTextUnderline", typeof(bool), typeof(TextView),
-										new FrameworkPropertyMetadata(true));
+										new PropertyMetadata(true));
 
 		/// <summary>
 		/// Gets/sets whether to underline link texts.
@@ -1702,7 +1702,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		}
 
 		/// <inheritdoc/>
-		protected override void OnMouseDown(MouseButtonEventArgs e)
+		protected override void OnMouseDown(PointerEventArgs e)
 		{
 			base.OnMouseDown(e);
 			if (!e.Handled) {
@@ -1715,7 +1715,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		}
 
 		/// <inheritdoc/>
-		protected override void OnMouseUp(MouseButtonEventArgs e)
+		protected override void OnMouseUp(PointerEventArgs e)
 		{
 			base.OnMouseUp(e);
 			if (!e.Handled) {
@@ -2053,7 +2053,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public static readonly DependencyProperty ColumnRulerPenProperty =
 			DependencyProperty.Register("ColumnRulerPen", typeof(Pen), typeof(TextView),
-										new FrameworkPropertyMetadata(CreateFrozenPen(Brushes.LightGray)));
+										new PropertyMetadata(CreateFrozenPen(Brushes.LightGray)));
 
 		static Pen CreateFrozenPen(SolidColorBrush brush)
 		{

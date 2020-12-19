@@ -18,8 +18,8 @@
 
 using System;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.TextFormatting;
 
 using ICSharpCode.AvalonEdit.Utils;
 

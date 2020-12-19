@@ -18,7 +18,7 @@
 
 using System;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Utils;
 
@@ -62,7 +62,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			}
 		}
 
-		public void Draw(TextView textView, System.Windows.Media.DrawingContext drawingContext)
+		public void Draw(TextView textView, Windows.UI.Xaml.Media.DrawingContext drawingContext)
 		{
 			if (column < 1) return;
 			double offset = textView.WideSpaceWidth * column;

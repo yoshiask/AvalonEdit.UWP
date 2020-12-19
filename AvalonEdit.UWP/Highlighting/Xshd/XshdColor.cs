@@ -20,7 +20,8 @@ using System;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Text;
+using Windows.UI.Xaml.Media;
 
 namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 {
@@ -98,9 +99,10 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 			this.Foreground = (HighlightingBrush)info.GetValue("Foreground", typeof(HighlightingBrush));
 			this.Background = (HighlightingBrush)info.GetValue("Background", typeof(HighlightingBrush));
 			if (info.GetBoolean("HasWeight"))
-				this.FontWeight = System.Windows.FontWeight.FromOpenTypeWeight(info.GetInt32("Weight"));
+				this.FontWeight = new FontWeight() { Weight = (ushort)info.GetInt32("Weight") };
 			if (info.GetBoolean("HasStyle"))
-				this.FontStyle = (FontStyle?)new FontStyleConverter().ConvertFromInvariantString(info.GetString("Style"));
+				// TODO: Set to null if parse failed
+				this.FontStyle = (FontStyle?)Enum.Parse(typeof(FontStyle), info.GetString("Style"));
 			this.ExampleText = info.GetString("ExampleText");
 			if (info.GetBoolean("HasUnderline"))
 				this.Underline = info.GetBoolean("Underline");
@@ -132,14 +134,14 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 			info.AddValue("HasWeight", this.FontWeight.HasValue);
 			info.AddValue("HasWeight", this.FontWeight.HasValue);
 			if (this.FontWeight.HasValue)
-				info.AddValue("Weight", this.FontWeight.Value.ToOpenTypeWeight());
+				info.AddValue("Weight", this.FontWeight.Value.Weight);
 			info.AddValue("HasStyle", this.FontStyle.HasValue);
 			if (this.FontStyle.HasValue)
 				info.AddValue("Style", this.FontStyle.Value.ToString());
 			info.AddValue("ExampleText", this.ExampleText);
 			info.AddValue("HasFamily", this.FontFamily != null);
 			if (this.FontFamily != null)
-				info.AddValue("Family", this.FontFamily.FamilyNames.FirstOrDefault());
+				info.AddValue("Family", this.FontFamily.Source);
 			info.AddValue("HasSize", this.FontSize.HasValue);
 			if (this.FontSize.HasValue)
 				info.AddValue("Size", this.FontSize.Value.ToString());

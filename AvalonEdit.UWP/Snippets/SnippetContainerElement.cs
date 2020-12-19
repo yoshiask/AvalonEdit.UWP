@@ -18,7 +18,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 
 using ICSharpCode.AvalonEdit.Utils;
 

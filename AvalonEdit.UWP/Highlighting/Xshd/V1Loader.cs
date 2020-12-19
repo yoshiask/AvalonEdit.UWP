@@ -21,11 +21,13 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 using System.Xml;
 using System.Xml.Schema;
 
 using ICSharpCode.AvalonEdit.Utils;
+using Windows.UI.Text;
+using Windows.UI;
 
 namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 {
@@ -108,7 +110,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 			if (element.HasAttribute("bold"))
 				color.FontWeight = XmlConvert.ToBoolean(element.GetAttribute("bold")) ? FontWeights.Bold : FontWeights.Normal;
 			if (element.HasAttribute("italic"))
-				color.FontStyle = XmlConvert.ToBoolean(element.GetAttribute("italic")) ? FontStyles.Italic : FontStyles.Normal;
+				color.FontStyle = XmlConvert.ToBoolean(element.GetAttribute("italic")) ? FontStyle.Italic : FontStyle.Normal;
 			if (element.HasAttribute("color"))
 				color.Foreground = ParseColor(element.GetAttribute("color"));
 			if (element.HasAttribute("bgcolor"))

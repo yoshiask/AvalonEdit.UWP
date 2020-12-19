@@ -20,8 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.TextFormatting;
 
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
@@ -163,7 +163,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 				return new FoldingLineTextRun(this, this.TextRunProperties) { textBrush = textBrush };
 			}
 
-			protected internal override void OnMouseDown(MouseButtonEventArgs e)
+			protected internal override void OnMouseDown(PointerEventArgs e)
 			{
 				if (e.ClickCount == 2 && e.ChangedButton == MouseButton.Left) {
 					fs.IsFolded = false;

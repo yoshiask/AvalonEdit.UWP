@@ -17,7 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 
 namespace ICSharpCode.AvalonEdit.Snippets
 {

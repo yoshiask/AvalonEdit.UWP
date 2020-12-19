@@ -22,7 +22,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Documents;
+using Windows.UI.Xaml.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -387,7 +387,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		#endregion
 
 		#region LeftButtonDown
-		void textArea_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		void textArea_MouseLeftButtonDown(object sender, PointerEventArgs e)
 		{
 			mode = MouseSelectionMode.None;
 			if (textArea.Document == null) {
@@ -655,7 +655,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		#endregion
 
 		#region MouseLeftButtonUp
-		void textArea_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		void textArea_MouseLeftButtonUp(object sender, PointerEventArgs e)
 		{
 			if (mode == MouseSelectionMode.None || e.Handled)
 				return;

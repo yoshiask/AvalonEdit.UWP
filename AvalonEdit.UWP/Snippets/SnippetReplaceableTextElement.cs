@@ -19,8 +19,8 @@
 using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
@@ -198,7 +198,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 
 			public KnownLayer Layer { get; set; }
 
-			public void Draw(TextView textView, System.Windows.Media.DrawingContext drawingContext)
+			public void Draw(TextView textView, Windows.UI.Xaml.Media.DrawingContext drawingContext)
 			{
 				ISegment s = element.Segment;
 				if (s != null) {

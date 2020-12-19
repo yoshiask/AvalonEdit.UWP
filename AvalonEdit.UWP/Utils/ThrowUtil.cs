@@ -21,6 +21,7 @@ using System.Globalization;
 
 namespace ICSharpCode.AvalonEdit.Utils
 {
+	// TODO: Replace with WCT ThrowHelper
 	/// <summary>
 	/// Contains exception-throwing helper methods.
 	/// </summary>

@@ -42,7 +42,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		/// Adds a weak event listener.
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1000:DoNotDeclareStaticMembersOnGenericTypes")]
-		public static void AddListener(TEventSource source, IWeakEventListener listener)
+		public static void AddListener(TEventSource source, WeakEventListener listener)
 		{
 			CurrentManager.ProtectedAddListener(source, listener);
 		}
@@ -51,7 +51,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 		/// Removes a weak event listener.
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1000:DoNotDeclareStaticMembersOnGenericTypes")]
-		public static void RemoveListener(TEventSource source, IWeakEventListener listener)
+		public static void RemoveListener(TEventSource source, WeakEventListener listener)
 		{
 			CurrentManager.ProtectedRemoveListener(source, listener);
 		}

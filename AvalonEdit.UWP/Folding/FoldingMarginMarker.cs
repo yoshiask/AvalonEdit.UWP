@@ -17,9 +17,9 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System.Windows;
-using System.Windows.Controls;
+using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+using Windows.UI.Xaml.Media;
 
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
@@ -45,7 +45,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 			}
 		}
 
-		protected override void OnMouseDown(MouseButtonEventArgs e)
+		protected override void OnMouseDown(PointerEventArgs e)
 		{
 			base.OnMouseDown(e);
 			if (!e.Handled) {
